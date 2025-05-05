@@ -1,6 +1,5 @@
 import { sdk } from './sdk'
 import { T } from '@start9labs/start-sdk'
-import { manifest as helloWorldManifest } from 'hello-world-startos/startos/manifest'
 import { uiPort } from './utils'
 
 export const main = sdk.setupMain(async ({ effects, started }) => {
@@ -9,16 +8,14 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
    *
    * In this section, we fetch any resources or run any desired preliminary commands.
    */
-  console.info('Starting Hello Moon!')
-
-  const depResult = await sdk.checkDependencies(effects)
-  depResult.throwIfNotSatisfied()
+  console.info('Starting Deluge!')
 
   /**
    * ======================== Additional Health Checks (optional) ========================
    *
    * In this section, we define *additional* health checks beyond those included with each daemon (below).
    */
+
   const additionalChecks: T.HealthCheck[] = []
 
   /**
@@ -33,15 +30,11 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
     {
       subcontainer: await sdk.SubContainer.of(
         effects,
-        { imageId: 'hello-moon' },
-        sdk.Mounts.of()
-          .addVolume('main', null, '/data', false)
-          .addDependency<
-            typeof helloWorldManifest
-          >('hello-world', 'main', null, '/hello-world', true),
-        'hello-moon-sub',
+        { imageId: 'deluge' },
+        sdk.Mounts.of().addVolume('main', null, '/config', false),
+        'deluge-sub',
       ),
-      command: ['hello-world'],
+      command: ['/init'],
       ready: {
         display: 'Web Interface',
         fn: () =>
