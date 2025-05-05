@@ -35,6 +35,12 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
         'deluge-sub',
       ),
       command: ['/init'],
+      runAsInit: true,
+      env: {
+        PUID: '1000',
+        PGID: '1000',
+        TZ: 'Etc/UTC',
+      },
       ready: {
         display: 'Web Interface',
         fn: () =>
