@@ -3,9 +3,12 @@ import { setDependencies } from './dependencies'
 import { setInterfaces } from './interfaces'
 import { versions } from './versions'
 import { actions } from './actions'
+import { store } from './file-models/store.json'
 
 // **** PreInstall ****
-const preInstall = sdk.setupPreInstall(async ({ effects }) => {})
+const preInstall = sdk.setupPreInstall(async ({ effects }) => {
+  await store.merge(effects, {})
+})
 
 // **** PostInstall ****
 const postInstall = sdk.setupPostInstall(async ({ effects }) => {})
