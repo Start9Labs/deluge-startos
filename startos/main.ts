@@ -31,7 +31,12 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
       subcontainer: await sdk.SubContainer.of(
         effects,
         { imageId: 'deluge' },
-        sdk.Mounts.of().addVolume('main', null, '/config', false),
+        sdk.Mounts.of().mountVolume({
+          volumeId: 'main',
+          subpath: null,
+          mountpoint: '/config',
+          readonly: false,
+        }),
         'deluge-sub',
       ),
       command: ['/init'],

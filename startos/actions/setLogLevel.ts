@@ -1,5 +1,5 @@
+import { logLevels, store } from '../file-models/store.json'
 import { sdk } from '../sdk'
-import { logLevels } from '../store'
 
 const { InputSpec, Value } = sdk
 
@@ -29,18 +29,9 @@ export const setLogLevel = sdk.Action.withInput(
   inputSpec,
 
   // optionally pre-fill the input form
-  async ({ effects }) => ({
-    DELUGE_LOGLEVEL: await sdk.store
-      .getOwn(effects, sdk.StorePath.DELUGE_LOGLEVEL)
-      .const(),
-  }),
+  async ({ effects }) => store.read().once(),
 
   // the execution function
-  async ({ effects, input }) => {
-    sdk.store.setOwn(
-      effects,
-      sdk.StorePath.DELUGE_LOGLEVEL,
-      input.DELUGE_LOGLEVEL,
-    )
-  },
+  async ({ effects, input }) =>
+    store.merge(effects, { DELUGE_LOGLEVEL: input.DELUGE_LOGLEVEL }),
 )
