@@ -1,4 +1,4 @@
-import { logLevels, store } from '../file-models/store.json'
+import { logLevels, store } from '../fileModels/store.json'
 import { sdk } from '../sdk'
 
 const { InputSpec, Value } = sdk

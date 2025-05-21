@@ -14,7 +14,7 @@ export const setInterfaces = sdk.setupInterfaces(async ({ effects }) => {
     masked: false,
     username: null,
     path: '',
-    search: {},
+    query: {},
   })
   const uiReceipt = await uiMultiOrigin.export([ui])
 
@@ -35,7 +35,7 @@ export const setInterfaces = sdk.setupInterfaces(async ({ effects }) => {
     masked: false,
     username: null,
     path: '',
-    search: {},
+    query: {},
   })
   const inboundReceipt = await inboundMultiOrigin.export([inbound])
 
